@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { usePokemonStore } from './hooks/usePokemonStore'
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router'
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename='pokedexPinflag'>
         <Routes>
           <Route path="/" index element={<Home />} />
 
