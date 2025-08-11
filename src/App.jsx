@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { usePokemonStore } from './hooks/usePokemonStore'
 import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router'
+import Home from './modules/home/Home';
 
 function App() {
 
@@ -19,7 +21,12 @@ function App() {
 
   return (
     <>
-      <p className='text-center text-5xl'>HOLA</p>    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" index element={<Home />} />
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
