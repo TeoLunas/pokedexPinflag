@@ -3,6 +3,7 @@ import { usePokemonStore } from './hooks/usePokemonStore'
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router'
 import Home from './modules/home/Home';
+import Pokedex from './modules/pokedex/Pokedex';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
       <BrowserRouter basename='pokedexPinflag'>
         <Routes>
           <Route path="/" index element={<Home />} />
-
+          <Route path='/pokedex' element={<Pokedex/>} />
         </Routes>
       </BrowserRouter>
     </>
