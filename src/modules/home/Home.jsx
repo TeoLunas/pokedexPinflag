@@ -1,4 +1,4 @@
-import React from 'react'
+import { NavLink, Link } from 'react-router'
 
 const Home = () => {
     return (
@@ -9,7 +9,7 @@ const Home = () => {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
                     w-16 h-16 bg-black rounded-full border-4 border-white 
                     flex justify-center items-center">
-                    <p className="text-white font-bold">START</p>
+                    <Link to="/" className="text-white font-bold cursor-pointer">START</Link>
                 </div>
             </div>
         </div>
