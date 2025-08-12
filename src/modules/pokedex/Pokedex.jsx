@@ -7,6 +7,7 @@ import { usePokemonStore } from "../../hooks/usePokemonStore";
 const Pokedex = () => {
 
   const { getPokemonDetail } = usePokemonStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [pokemonList, setPokemonList] = useState([]);
 
@@ -35,31 +36,33 @@ const Pokedex = () => {
 
       <main className="flex-1 overflow-y-auto p-4 bg-gray-100">
         <ul className="grid grid-cols-3 gap-4">
-          {pokemonList.length === 0 ? (
-            <p>Cargando...</p>
-          ) : (
-            pokemonList.map((poke, index) => (
-              <li
-                key={index}
-                className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center text-center border border-gray-200"
-              >
-                <p className="text-lg font-bold capitalize">{poke.name}</p>
-                <p className="text-gray-500 text-sm">ID: {poke.id}</p>
-
-                {poke.sprites ? (
-                  <img
-                    src={poke.sprites}
-                    alt={poke.name}
-                    width={100}
-                    height={100}
-                    className="mt-2"
-                  />
-                ) : (
-                  <p className="mt-2 text-red-500">Sin imagen</p>
-                )}
-              </li>
+          {isLoading ?
+            Array.from({ length: 30 }).map((_, i) => (
+              <li key={i} className="aspect-square bg-gray-300 rounded-md animate-pulse" />
             ))
-          )}
+            : (
+              pokemonList.map((poke, index) => (
+                <li
+                  key={index}
+                  className="bg-white shadow-lg rounded-xl p-4 flex flex-col items-center text-center border border-gray-200"
+                >
+                  <p className="text-lg font-bold capitalize">{poke.name}</p>
+                  <p className="text-gray-500 text-sm">ID: {poke.id}</p>
+
+                  {poke.sprites ? (
+                    <img
+                      src={poke.sprites}
+                      alt={poke.name}
+                      width={100}
+                      height={100}
+                      className="mt-2"
+                    />
+                  ) : (
+                    <p className="mt-2 text-red-500">Sin imagen</p>
+                  )}
+                </li>
+              ))
+            )}
         </ul>
 
       </main>
