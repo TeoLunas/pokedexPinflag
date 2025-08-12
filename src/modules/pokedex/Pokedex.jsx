@@ -5,7 +5,7 @@ import { usePokemonStore } from "../../hooks/usePokemonStore";
 import { MdFavorite, MdSearch } from "react-icons/md";
 
 const Pokedex = () => {
-  const { getPokemonDetail } = usePokemonStore();
+  const { getListPokemons, getPokemonDetail, searchPokemon } = usePokemonStore();
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
 
@@ -13,9 +13,17 @@ const Pokedex = () => {
   const [isActiveAnimation, setIsActiveAnimation] = useState(true);
   const [isAuto, setIsAuto] = useState(false);
 
+  const [pokemonToSearch, setPokemonToSearch] = useState('');
+
   const pokemonListDetailStore = useSelector(
     (state) => state.pokemon.PokemonListDetail
   );
+
+  const searchPokemonA = async () => {
+    if(pokemonToSearch.length > 0){
+      await searchPokemon(pokemonToSearch);
+    }
+  }
 
   useEffect(() => {
     if (pokemonListDetailStore != null) {
@@ -28,7 +36,10 @@ const Pokedex = () => {
 
   useEffect(() => {
     // getPokemonDetail(1)
-  }, []);
+    if (pokemonToSearch.length === 0) {
+      getListPokemons();
+    }
+  }, [pokemonToSearch]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -44,6 +55,14 @@ const Pokedex = () => {
               type="text"
               placeholder="Buscar..."
               className="bg-transparent outline-none px-2 flex-1 text-sm"
+              value={pokemonToSearch}
+              onChange={(e) => setPokemonToSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  console.log("enter");
+                  searchPokemonA();
+                }
+              }}
             />
           </div>
 

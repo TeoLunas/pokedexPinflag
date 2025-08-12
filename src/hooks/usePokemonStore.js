@@ -41,11 +41,33 @@ export const usePokemonStore = () => {
 
     };
 
+    const searchPokemon = async (name) => {
+        try {
+            dispatch(setPokemonList([]));
+            dispatch(setPokemonListDetail([]))
+            const { data } = await pokemonApi.get(`/pokemon/${name}`);
+            console.log('searchPokemon-->', data);
+
+            const detail = {
+                id: data.id,
+                name: data.name,
+                gif: data.sprites?.other?.showdown?.front_default ?? null,
+                image: data.sprites?.front_default ?? null,
+                isFavorite: false,
+            };
+            dispatch(setPokemonListDetail([detail]));
+
+        } catch (error) {
+            console.log('searchPokemon', error)
+        }
+    }
+
 
 
     return {
         getListPokemons,
-        getPokemonDetail
+        getPokemonDetail,
+        searchPokemon
     }
 
 }
